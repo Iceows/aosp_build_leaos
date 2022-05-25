@@ -12,7 +12,14 @@ fi
 pushd "$1"
 
 repo init -u https://android.googlesource.com/platform/manifest -b android-11.0.0_r48
-git clone --single-branch https://github.com/iceows/aosp_manifest_leaos .repo/local_manifests
+
+echo "Preparing local manifests"
+rm -rf .repo/local_manifests
+mkdir -p .repo/local_manifests
+cp ./aosp_build_leaos/local_manifests_leaos/*.xml .repo/local_manifests
+echo ""
+
+
 repo sync -j${para} -c -q --force-sync --no-tags --no-clone-bundle --optimized-fetch --prune ||exit
 bash ${rund}/apply-patches.sh ${rund} ||echo "*!* NOT ALL PATCHES APPLIED, CHECK THEM MANUALLY" && exit
 cd device/phh/treble
