@@ -19,9 +19,11 @@ mkdir -p .repo/local_manifests
 cp ./aosp_build_leaos/local_manifests_leaos/*.xml .repo/local_manifests
 echo ""
 
-
 repo sync -j${para} -c -q --force-sync --no-tags --no-clone-bundle --optimized-fetch --prune ||exit
-bash ${rund}/apply-patches.sh ${rund} ||echo "*!* NOT ALL PATCHES APPLIED, CHECK THEM MANUALLY" && exit
+bash ./aosp_build_leaos/apply-patches.sh ${rund} ||echo "*!* NOT ALL PATCHES APPLIED, CHECK THEM MANUALLY" && exit
+
+echo ""
+
 cd device/phh/treble
 bash generate.sh
 cd -
