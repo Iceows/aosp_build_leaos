@@ -27,15 +27,13 @@ mkdir -p .repo/local_manifests
 cp ./aosp_build_leaos/local_manifests_leaos/*.xml .repo/local_manifests
 echo ""
 
-echo "repo synchro"
-#repo sync -j${para} -c -q --force-sync --no-tags --no-clone-bundle --optimized-fetch --prune ||exit
+echo "Synchronize repos"
+repo sync -j${para} -c -q --force-sync --no-tags --no-clone-bundle --optimized-fetch --prune || exit
 
-bash ${rund}/aosp_build_leaos/apply-patches.sh ${rund} || echo "*!* NOT ALL PATCHES APPLIED, CHECK THEM MANUALLY" && exit
+echo "Applying patches"
+bash ${rund}/aosp_build_leaos/apply-patches.sh ${rund}  || exit
 
-
-
-echo ""
-
+echo "Generate phh treble"
 cd device/phh/treble
 bash generate.sh
 cd -

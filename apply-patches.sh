@@ -14,7 +14,6 @@ for d in ${assets}; do
     [ "$p" == vendor/partner/gms ] && p=vendor/partner_gms
     [ "$p" == external/harfbuzz/ng ] && p=external/harfbuzz_ng
     echo
-    echo $p
     pushd $p
       git clean -fdx
       git reset --hard
