@@ -4,12 +4,20 @@
 rund="$(pwd)"
 para="$(nproc)"
 
+
+echo "Current dir : ${rund} "
+echo "Nb proc : ${para}"
+
 if [ ! "$1" ]; then
 	echo "set build directory"
 	exit
 fi
 
+echo "AOSP Source directory : $1"
+
 pushd "$1"
+
+
 
 repo init -u https://android.googlesource.com/platform/manifest -b android-11.0.0_r48
 
@@ -19,8 +27,12 @@ mkdir -p .repo/local_manifests
 cp ./aosp_build_leaos/local_manifests_leaos/*.xml .repo/local_manifests
 echo ""
 
-repo sync -j${para} -c -q --force-sync --no-tags --no-clone-bundle --optimized-fetch --prune ||exit
-bash ./aosp_build_leaos/apply-patches.sh ${rund} ||echo "*!* NOT ALL PATCHES APPLIED, CHECK THEM MANUALLY" && exit
+echo "repo synchro"
+#repo sync -j${para} -c -q --force-sync --no-tags --no-clone-bundle --optimized-fetch --prune ||exit
+
+bash ${rund}/aosp_build_leaos/apply-patches.sh ${rund} || echo "*!* NOT ALL PATCHES APPLIED, CHECK THEM MANUALLY" && exit
+
+
 
 echo ""
 

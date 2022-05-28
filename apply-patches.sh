@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e
 
-patches="$(readlink -f -- $1)"
+patches="$(readlink -f -- $1)/aosp_patches_leaos"
 assets="personal spl"
+
+echo "${patches}"
 
 for d in ${assets}; do
   for project in $(cd ${patches}/patches/${d}; echo *); do
@@ -12,6 +14,7 @@ for d in ${assets}; do
     [ "$p" == vendor/partner/gms ] && p=vendor/partner_gms
     [ "$p" == external/harfbuzz/ng ] && p=external/harfbuzz_ng
     echo
+    echo $p
     pushd $p
       git clean -fdx
       git reset --hard
