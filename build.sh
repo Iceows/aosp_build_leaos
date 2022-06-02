@@ -119,7 +119,7 @@ else
     prep_build
     echo "Applying patches"
     prep_treble
-    apply_patches spl
+    #apply_patches spl
     apply_patches phh
     apply_patches personal
     finalize_treble
