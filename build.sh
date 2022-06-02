@@ -1,45 +1,144 @@
 #!/bin/bash
-#set -e
+echo ""
+echo "AOSP Buildbot - LeaOS version"
+echo "Executing in 5 seconds - CTRL-C to exit"
+echo ""
+sleep 5
 
-rund="$(pwd)"
-para="$(nproc)"
-
-
-echo "Current dir : ${rund} "
-echo "Nb proc : ${para}"
-
-if [ ! "$1" ]; then
-	echo "set build directory"
-	exit
+if [ $# -lt 1 ]
+then
+    echo "Not enough arguments - exiting"
+    echo ""
+    exit 1
 fi
 
-echo "AOSP Source directory : $1"
+MODE=${1}
+NOSYNC=false
+PERSONAL=false
+ICEOWS=true
+for var in "${@:2}"
+do
+    if [ ${var} == "nosync" ]
+    then
+        NOSYNC=true
+    fi
+done
 
-pushd "$1"
+echo "Building with NoSync : $NOSYNC - Mode : ${MODE}"
 
 
+
+# Abort early on error
+set -eE
+trap '(\
+echo;\
+echo \!\!\! An error happened during script execution;\
+echo \!\!\! Please check console output for bad sync,;\
+echo \!\!\! failed patch application, etc.;\
+echo\
+)' ERR
+
+START=`date +%s`
+BUILD_DATE="$(date +%Y%m%d)"
+WITHOUT_CHECK_API=true
+WITH_SU=true
 
 repo init -u https://android.googlesource.com/platform/manifest -b android-11.0.0_r48
 
-echo "Preparing local manifests"
-rm -rf .repo/local_manifests
-mkdir -p .repo/local_manifests
-cp ./aosp_build_leaos/local_manifests_leaos/*.xml .repo/local_manifests
+prep_build() {
+	echo "Preparing local manifests"
+	rm -rf .repo/local_manifests
+	mkdir -p .repo/local_manifests
+	cp ./aosp_build_leaos/local_manifests_leaos/*.xml .repo/local_manifests
+	echo ""
+
+	echo "Syncing repos"
+	repo sync -j$(nproc --all) -c -q --force-sync --no-tags --no-clone-bundle --optimized-fetch --prune
+
+	echo ""
+
+	echo "Setting up build environment"
+	source build/envsetup.sh &> /dev/null
+	mkdir -p ~/build-output
+	echo ""
+}
+
+apply_patches() {
+    echo "Applying patch group ${1}"
+    bash ./treble_experimentations/apply-patches.sh ./aosp_patches_leaos/patches/${1}
+}
+
+prep_device() {
+    :
+}
+
+prep_treble() {
+    echo "Applying patch treble prerequisite and phh"
+
+}
+
+finalize_device() {
+    :
+}
+
+finalize_treble() {
+    rm -f device/*/sepolicy/common/private/genfs_contexts
+    cd device/phh/treble
+    git clean -fdx
+    bash generate.sh
+    cd ../../..
+}
+
+build_device() {
+	:
+}
+
+build_treble() {
+    case "${1}" in
+        ("64BGS") TARGET=treble_arm64_bgS;;  
+        ("64BGN") TARGET=treble_arm64_bgN;;
+        ("64BVS") TARGET=treble_arm64_bvS;;
+        ("64BVN") TARGET=treble_arm64_bvN;;
+        (*) echo "Invalid target - exiting"; exit 1;;
+    esac
+    lunch ${TARGET}-userdebug
+    make installclean
+    make -j$(nproc --all) systemimage
+
+    mv $OUT/system.img ~/build-output/LeaOS-AOSP-$BUILD_DATE-${TARGET}.img
+}
+
+if ${NOSYNC}
+then
+    echo "ATTENTION: syncing/patching skipped!"
+    echo ""
+    echo "Setting up build environment"
+    source build/envsetup.sh &> /dev/null
+    echo ""
+else
+    prep_build
+    echo "Applying patches"
+    prep_treble
+    apply_patches spl
+    apply_patches phh
+    apply_patches personal
+    finalize_treble
+    echo ""
+fi
+
+for var in "${@:2}"
+do
+    if [ ${var} == "nosync" ]
+    then
+        continue
+    fi
+    echo "Starting $(${PERSONAL} && echo "personal " || echo "")build for ${MODE} ${var}"
+    build_${MODE} ${var}
+done
+ls ~/build-output | grep 'AOSP' || true
+
+END=`date +%s`
+ELAPSEDM=$(($(($END-$START))/60))
+ELAPSEDS=$(($(($END-$START))-$ELAPSEDM*60))
+echo "Buildbot completed in $ELAPSEDM minutes and $ELAPSEDS seconds"
 echo ""
-
-echo "Synchronize repos"
-repo sync -j${para} -c -q --force-sync --no-tags --no-clone-bundle --optimized-fetch --prune || exit
-
-echo "Applying patches"
-bash ${rund}/aosp_build_leaos/apply-patches.sh ${rund}  || exit
-
-echo "Generate phh treble"
-cd device/phh/treble
-bash generate.sh
-cd -
-. build/envsetup.sh
-lunch treble_arm64_bvN-userdebug
-make -j${para} systemimage
-
-popd
-
