@@ -73,8 +73,7 @@ prep_device() {
 }
 
 prep_treble() {
-    echo "Applying patch treble prerequisite and phh"
-
+    :    
 }
 
 finalize_device() {
@@ -117,17 +116,17 @@ then
     echo ""
 else
     prep_build
-    
     echo "Applying patches"
     prep_treble
+    
     apply_patches spl
     apply_patches phh
     apply_patches personal
     apply_patches others
 
     finalize_treble
-    
     echo ""
+
 fi
 
 for var in "${@:2}"
