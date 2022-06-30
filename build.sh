@@ -106,7 +106,7 @@ build_treble() {
     make installclean
     make -j$(nproc --all) systemimage
 
-    mv $OUT/system.img ~/build-output/LeaOS-AOSP-$BUILD_DATE-${TARGET}.img
+    mv $OUT/system.img ~/build-output/LeaOS-PHH-$BUILD_DATE-${TARGET}.img
 }
 
 if ${NOSYNC}
@@ -140,7 +140,7 @@ do
     echo "Starting $(${PERSONAL} && echo "personal " || echo "")build for ${MODE} ${var}"
     build_${MODE} ${var}
 done
-ls ~/build-output | grep 'AOSP' || true
+ls ~/build-output | grep 'LeaOS' || true
 
 END=`date +%s`
 ELAPSEDM=$(($(($END-$START))/60))
