@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-<remote name="phh" fetch="https://github.com/phhusson/" />
+<remote name="aosp" fetch=".." review="https://android-review.googlesource.com/"/>
+<remote name="davish" fetch="https://gitlab.com/davi.sh/"/>
+<remote name="fdroid" fetch="https://gitlab.com/fdroid/"/>
+<remote name="phh" fetch="https://github.com/phhusson/"/>
 
-<project path="vendor/hardware_overlay" name="vendor_hardware_overlay" remote="phh" revision="pie" />
-<project path="device/phh/treble" name="device_phh_treble" remote="phh" revision="android-11.0" />
-<project path="vendor/vndk-tests" name="vendor_vndk-tests" remote="phh" revision="master" />
-<project path="vendor/gapps-go" name="gapps-go" remote="phh" revision="master" />
-<project path="vendor/interfaces" name="vendor_interfaces" remote="phh" revision="android-11.0" />
-<project path="vendor/magisk" name="vendor_magisk" remote="phh" revision="android-10.0" />
+
+<project path="vendor/hardware_overlay" name="vendor_hardware_overlay" remote="phh" revision="04d2544165d5b85587a4dbb90a5aaa33bd5baec6" upstream="pie" dest-branch="pie" />
+<project path="device/phh/treble" name="device_phh_treble" remote="phh" revision="85b2d3901f0cb88320c88eefde657a8e9d4d2aa7" upstream="android-12.0" dest-branch="android-12.0" groups="local::manifest"/>
+<project path="vendor/gapps-go" name="gapps-go" remote="phh" revision="b00a14a5fef1841438a63aa187b7e25bc271eb06" upstream="master" dest-branch="master" groups="local::manifest"/>
+<project path="vendor/interfaces" name="vendor_interfaces" remote="phh" revision="db7dade51913954c7de0aaa77000b98a707fed7b" upstream="android-11.0" dest-branch="android-11.0" groups="local::manifest"/>
+<project path="vendor/magisk" name="vendor_magisk" remote="phh" revision="d8056f8032a0f60f365ddfe5e9fccd7eaf3a655d" upstream="android-10.0" dest-branch="android-10.0" groups="local::manifest"/> <project path="vendor/vndk-tests" name="vendor_vndk-tests" remote="phh" revision="5531c9f077f391ba1c9ea9652a172a86d2f6e34b" upstream="master" dest-branch="master" groups="local::manifest"/>
 
 <!-- GCamGO support -->
 <remote name="iceows" fetch="https://github.com/iceows/" />
@@ -15,5 +18,6 @@
 
 <!-- exfat support -->
 <remote name="relan" fetch="https://github.com/relan/" />
-<project path="external/exfat" name="exfat" remote="relan" revision="master" />
+<project path="external/exfat" name="exfat" remote="relan" revision="8cfa4d949355be475475a343b1230c7ecaee56af" upstream="master" dest-branch="master" groups="local::manifest"/>
+  
 </manifest>
