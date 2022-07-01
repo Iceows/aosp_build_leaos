@@ -8,22 +8,23 @@
 
 <default remote="aosp" revision="refs/tags/android-12.1.0_r8" sync-j="4"/>
 
-<project path="vendor/hardware_overlay" name="vendor_hardware_overlay" remote="phh" revision="04d2544165d5b85587a4dbb90a5aaa33bd5baec6" upstream="pie" dest-branch="pie" groups="local::manifest"/>
-<project path="device/phh/treble" name="device_phh_treble" remote="phh" revision="85b2d3901f0cb88320c88eefde657a8e9d4d2aa7" upstream="android-12.0" dest-branch="android-12.0" groups="local::manifest"/>
-<project path="vendor/gapps-go" name="gapps-go" remote="phh" revision="b00a14a5fef1841438a63aa187b7e25bc271eb06" upstream="master" dest-branch="master" groups="local::manifest"/>
-<project path="vendor/interfaces" name="vendor_interfaces" remote="phh" revision="db7dade51913954c7de0aaa77000b98a707fed7b" upstream="android-11.0" dest-branch="android-11.0" groups="local::manifest"/>
-<project path="vendor/magisk" name="vendor_magisk" remote="phh" revision="d8056f8032a0f60f365ddfe5e9fccd7eaf3a655d" upstream="android-10.0" dest-branch="android-10.0" groups="local::manifest"/> <project path="vendor/vndk-tests" name="vendor_vndk-tests" remote="phh" revision="5531c9f077f391ba1c9ea9652a172a86d2f6e34b" upstream="master" dest-branch="master" groups="local::manifest"/>
-<project name="gms-android-12" path="vendor/partner_gms" remote="davish" revision="47d9cbe3d7dbb62a376b066fb34ec3c532ee960a" upstream="d589a97c7aa34964c06077a6cc20a66234d5b16d" dest-branch="d589a97c7aa34964c06077a6cc20a66234d5b16d" groups="local::gapps"/>
+<project path="vendor/hardware_overlay" name="vendor_hardware_overlay" remote="phh" upstream="pie" dest-branch="pie" groups="local::manifest"/>
+<project path="device/phh/treble" name="device_phh_treble" remote="phh" upstream="android-12.0" dest-branch="android-12.0" groups="local::manifest"/>
+<project path="vendor/gapps-go" name="gapps-go" remote="phh" upstream="master" dest-branch="master" groups="local::manifest"/>
+<project path="vendor/interfaces" name="vendor_interfaces" remote="phh" upstream="android-11.0" dest-branch="android-11.0" groups="local::manifest"/>
+<project path="vendor/magisk" name="vendor_magisk" remote="phh" upstream="android-10.0" dest-branch="android-10.0" groups="local::manifest"/> 
+<project path="vendor/vndk-tests" name="vendor_vndk-tests" remote="phh" upstream="master" dest-branch="master" groups="local::manifest"/>
+<project name="gms-android-12" path="vendor/partner_gms" remote="davish" upstream="d589a97c7aa34964c06077a6cc20a66234d5b16d" dest-branch="d589a97c7aa34964c06077a6cc20a66234d5b16d" groups="local::gapps"/>
   
 <!-- FDroid -->  
-<project path="packages/apps/FDroidPrivilegedExtension" name="privileged-extension.git" remote="fdroid" revision="fd96970b78d045adbaf39e1dcfec2e200483d45c" upstream="refs/tags/0.2.7" dest-branch="refs/tags/0.2.7" groups="local::foss"/>
+<project path="packages/apps/FDroidPrivilegedExtension" name="privileged-extension.git" remote="fdroid" upstream="refs/tags/0.2.7" dest-branch="refs/tags/0.2.7" groups="local::foss"/>
    
 <!-- GCamGO support -->
 <remote name="iceows" fetch="https://github.com/iceows/" />
-<project path="packages/apps/GcamGo" name="android_packages_apps_GCamGOPrebuilt" remote="iceows" revision="main" groups="local::manifest"/>
+<project path="packages/apps/GcamGo" name="android_packages_apps_GCamGOPrebuilt" remote="iceows" groups="local::manifest"/>
 
 <!-- exfat support -->
 <remote name="relan" fetch="https://github.com/relan/" />
-<project path="external/exfat" name="exfat" remote="relan" revision="8cfa4d949355be475475a343b1230c7ecaee56af" upstream="master" dest-branch="master" groups="local::manifest"/>
+<project path="external/exfat" name="exfat" remote="relan" upstream="master" dest-branch="master" groups="local::manifest"/>
   
 </manifest>
