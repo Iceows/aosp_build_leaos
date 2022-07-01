@@ -24,7 +24,7 @@
    
 <!-- GCamGO support -->
 <remote name="iceows" fetch="https://github.com/iceows/" />
-<project path="packages/apps/GcamGo" name="android_packages_apps_GCamGOPrebuilt" remote="iceows" revision="master" />
+<project path="packages/apps/GcamGo" name="android_packages_apps_GCamGOPrebuilt" remote="iceows" revision="main" />
 
 <!-- exfat support -->
 <remote name="relan" fetch="https://github.com/relan/" />
