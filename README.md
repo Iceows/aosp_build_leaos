@@ -32,7 +32,7 @@ Be sure to update the cloned repos from time to time!
 
 A-only targets for Huawei hi6250 re generated from AB images instead of source-built - refer to [huawei-creator](https://github.com/iceows/huawei-creator).
 
-	sudo ./run-huawei-aonly.sh "myimage.img"  "LeaOS-PHH" "PRA-LX1" "Y"
+	sudo ./run-huawei-aonly.sh "myimage.img"  "LeaOS-PHH" "PRA-LX1" "Y" "N"
 
 ---
 
