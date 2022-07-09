@@ -16,10 +16,10 @@ Initialize your LineageOS workspace:
 
     repo init -u https://android.googlesource.com/platform/manifest -b android-11.0.0_r48
 
-Clone both this and the patches repos:
+Clone both this and the patches repos for A11:
 
-    git clone https://github.com/iceows/aosp_build_leaos aosp_build_leaos
-    git clone https://github.com/iceows/aosp_patches_leaos aosp_patches_leaos
+    git clone https://github.com/iceows/aosp_build_leaos aosp_build_leaos -b android-11
+    git clone https://github.com/iceows/aosp_patches_leaos aosp_patches_leaos -b android-11
 
 Finally, start the build script (Dynamic root):
 
