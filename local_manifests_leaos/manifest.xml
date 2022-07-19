@@ -5,8 +5,8 @@
  <remote name="davish" fetch="https://gitlab.com/davi.sh/"/>
  <remote name="fdroid" fetch="https://gitlab.com/fdroid/"/>
 
-<default remote="aosp" revision="refs/tags/android-12.1.0_r8" sync-j="4"/>
-
+<default remote="aosp" revision="refs/tags/android-12.1.0_r11" sync-j="4"/>
+ 
 <project path="vendor/hardware_overlay" name="vendor_hardware_overlay" remote="phh" revision="pie" />
 <project path="device/phh/treble" name="device_phh_treble" remote="phh" revision="android-12.0" />
 <project path="vendor/vndk-tests" name="vendor_vndk-tests" remote="phh" revision="master" />

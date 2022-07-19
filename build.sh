@@ -43,7 +43,7 @@ BUILD_DATE="$(date +%Y%m%d)"
 WITHOUT_CHECK_API=true
 WITH_SU=true
 
-repo init -u https://android.googlesource.com/platform/manifest -b android-12.1.0_r8
+repo init -u https://android.googlesource.com/platform/manifest -b android-12.1.0_r11
 
 prep_build() {
 	echo "Preparing local manifests"
