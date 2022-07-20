@@ -1,6 +1,6 @@
 #!/bin/bash
 echo ""
-echo "AOSP Buildbot - LeaOS version"
+echo "AOSP Buildbot - LeaOS version Android 12"
 echo "Executing in 5 seconds - CTRL-C to exit"
 echo ""
 sleep 5
@@ -106,7 +106,7 @@ build_treble() {
     make installclean
     make -j$(nproc --all) systemimage
 
-    mv $OUT/system.img ~/build-output/LeaOS-PHH-$BUILD_DATE-${TARGET}.img
+    mv $OUT/system.img ~/build-output/LeaOS-A12-$BUILD_DATE-${TARGET}.img
 }
 
 if ${NOSYNC}
