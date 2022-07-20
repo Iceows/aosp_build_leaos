@@ -121,10 +121,8 @@ else
     echo "Applying patches"
     prep_treble
     
-    apply_patches spl
     apply_patches phh
-    apply_patches personal
-    apply_patches others
+    apply_patches iceows
 
     finalize_treble
     echo ""
