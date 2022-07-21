@@ -41,7 +41,7 @@ echo\
 START=`date +%s`
 BUILD_DATE="$(date +%Y%m%d)"
 WITHOUT_CHECK_API=true
-WITH_SU=true
+ORIGIN_FOLDER="$(dirname "$(readlink -f -- "$0")")"
 
 repo init -u https://android.googlesource.com/platform/manifest -b android-12.1.0_r11
 
@@ -82,10 +82,17 @@ finalize_device() {
 
 finalize_treble() {
     rm -f device/*/sepolicy/common/private/genfs_contexts
-    cd device/phh/treble
-    git clean -fdx
-    bash generate.sh
-    cd ../../..
+
+    repo forall -r '.*opengapps.*' -c 'git lfs fetch && git lfs checkout'
+    (cd device/phh/treble; git clean -fdx; bash generate.sh phh)
+    
+    #(cd vendor/foss; git clean -fdx; bash update.sh)
+    
+    if grep -q lottie packages/apps/Launcher3/Android.bp;then
+       (cd vendor/partner_gms; git am ../../treble_experimentations/0001-Fix-SearchLauncher-for-Android-12.1.patch || true)
+    fi
+
+    rm -f vendor/gapps/interfaces/wifi_ext/Android.bp
 }
 
 build_device() {
@@ -103,8 +110,10 @@ build_treble() {
         (*) echo "Invalid target - exiting"; exit 1;;
     esac
     lunch ${TARGET}-userdebug
-    make installclean
-    make -j$(nproc --all) systemimage
+
+    make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE installclean
+    make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE -j8 systemimage
+    make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE vndk-test-sepolicy
 
     mv $OUT/system.img ~/build-output/LeaOS-A12-$BUILD_DATE-${TARGET}.img
 }
