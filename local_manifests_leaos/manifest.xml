@@ -17,10 +17,13 @@
 
 
 <!-- Google Apps 12 support -->
-<project name="gms-android-12" path="vendor/partner_gms" remote="davish" revision="master" /> 
+<project name="gms-android-12" path="vendor/partner_gms" remote="davish" revision="d589a97c7aa34964c06077a6cc20a66234d5b16d" /> 
+
   
 <!-- FDroid -->  
-<project name="privileged-extension.git" path="packages/apps/FDroidPrivilegedExtension" remote="fdroid" revision="master" />
+<project path="packages/apps/FDroidPrivilegedExtension" name="privileged-extension.git" remote="fdroid" revision="refs/tags/0.2.7" />
+<project path="vendor/foss" name="vendor_foss" remote="phh" revision="master" />
+
    
 <!-- GCamGO support -->
 <remote name="iceows" fetch="https://github.com/iceows/" />

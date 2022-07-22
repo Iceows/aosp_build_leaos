@@ -65,7 +65,7 @@ prep_build() {
 
 apply_patches() {
     echo "Applying patch group ${1}"
-    bash ./treble_experimentations/apply-patches.sh ./aosp_patches_leaos/patches/${1}
+    bash ./aosp_build_leaos/apply-patches.sh ./aosp_patches_leaos/patches/${1}
 }
 
 prep_device() {
@@ -84,15 +84,17 @@ finalize_treble() {
     rm -f device/*/sepolicy/common/private/genfs_contexts
 
     repo forall -r '.*opengapps.*' -c 'git lfs fetch && git lfs checkout'
-    (cd device/phh/treble; git clean -fdx; bash generate.sh phh)
     
-    #(cd vendor/foss; git clean -fdx; bash update.sh)
+    (cd device/phh/treble; git clean -fdx; bash generate.sh)
+    (cd vendor/foss; git clean -fdx; bash update.sh)
     
+    # only A12 build
     if grep -q lottie packages/apps/Launcher3/Android.bp;then
-       (cd vendor/partner_gms; git am ../../treble_experimentations/0001-Fix-SearchLauncher-for-Android-12.1.patch || true)
+       (cd vendor/partner_gms; git am ../../aosp_build_leaos/0001-Fix-SearchLauncher-for-Android-12.1.patch || true)
     fi
 
     rm -f vendor/gapps/interfaces/wifi_ext/Android.bp
+    
 }
 
 build_device() {
@@ -113,7 +115,13 @@ build_treble() {
 
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE installclean
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE -j8 systemimage
-    make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE vndk-test-sepolicy
+    
+    if ${WITHOUT_CHECK_API}
+    then
+    	echo "Skip VNDK test sepolicy"
+    else
+    	make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE vndk-test-sepolicy
+    fi
 
     mv $OUT/system.img ~/build-output/LeaOS-A12-$BUILD_DATE-${TARGET}.img
 }
@@ -135,7 +143,6 @@ else
 
     finalize_treble
     echo ""
-
 fi
 
 for var in "${@:2}"
