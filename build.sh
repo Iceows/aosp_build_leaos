@@ -67,7 +67,7 @@ prep_build() {
 
 apply_patches() {
     echo "Applying patch group ${1}"
-    bash ./treble_experimentations/apply-patches.sh ./aosp_patches_leaos/patches/${1}
+    bash ./aosp_build_leaos/apply-patches.sh ./aosp_patches_leaos/patches/${1}
 }
 
 prep_device() {
