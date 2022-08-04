@@ -17,7 +17,7 @@
 
 
 <!-- Google Apps 12 support -->
-<project name="gms-android-12" path="vendor/partner_gms" remote="davish" revision="d589a97c7aa34964c06077a6cc20a66234d5b16d" /> 
+<project name="gms-android-12" path="vendor/partner_gms" remote="davish" revision="android-12.1" /> 
 
   
 <!-- FDroid -->  
