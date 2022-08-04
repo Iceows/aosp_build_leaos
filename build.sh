@@ -40,8 +40,10 @@ echo\
 
 START=`date +%s`
 BUILD_DATE="$(date +%Y%m%d)"
-WITHOUT_CHECK_API=true
-WITH_SU=true
+
+export WITHOUT_CHECK_API=true
+export WITH_SU=true
+export OUT_DIR=/home/iceows/build
 
 repo init -u https://android.googlesource.com/platform/manifest -b android-11.0.0_r48
 
@@ -53,7 +55,7 @@ prep_build() {
 	echo ""
 
 	echo "Syncing repos"
-	repo sync -j$(nproc --all) -c -q --force-sync --no-tags --no-clone-bundle --optimized-fetch --prune
+	repo sync -j4 -c -q --force-sync --no-tags --no-clone-bundle --optimized-fetch --prune
 
 	echo ""
 
