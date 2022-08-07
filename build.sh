@@ -95,6 +95,8 @@ finalize_treble() {
 
     rm -f vendor/gapps/interfaces/wifi_ext/Android.bp
     
+    #rm -rf vendor/gapps/partner_gms/product
+    
 }
 
 build_device() {
