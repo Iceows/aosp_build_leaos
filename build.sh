@@ -42,6 +42,7 @@ START=`date +%s`
 BUILD_DATE="$(date +%Y%m%d)"
 WITHOUT_CHECK_API=true
 ORIGIN_FOLDER="$(dirname "$(readlink -f -- "$0")")"
+export OUT_DIR=/home/iceows/build/A12
 
 repo init -u https://android.googlesource.com/platform/manifest -b android-12.1.0_r11
 
