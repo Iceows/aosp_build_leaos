@@ -43,7 +43,7 @@ BUILD_DATE="$(date +%Y%m%d)"
 
 export WITHOUT_CHECK_API=true
 export WITH_SU=true
-export OUT_DIR=/home/iceows/build
+export OUT_DIR=/home/iceows/build/A11
 
 repo init -u https://android.googlesource.com/platform/manifest -b android-11.0.0_r48
 
