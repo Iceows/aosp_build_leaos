@@ -118,7 +118,7 @@ build_treble() {
 
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE installclean
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE -j$(nproc --all)  systemimage
-    make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE vndk-test-sepolicy
+    #make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE vndk-test-sepolicy
 
 
     mv $OUT/system.img ~/build-output/LeaOS-A12-$BUILD_DATE-${TARGET}.img
