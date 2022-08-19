@@ -16,14 +16,14 @@ Initialize your LineageOS workspace:
 
     repo init -u https://android.googlesource.com/platform/manifest -b android-11.0.0_r48
 
-Clone both this and the patches repos for A11:
+Clone both this and the patches repos:
 
-    git clone https://github.com/iceows/aosp_build_leaos aosp_build_leaos -b android-11
-    git clone https://github.com/iceows/aosp_patches_leaos aosp_patches_leaos -b android-11
+    git clone https://github.com/iceows/aosp_build_leaos aosp_build_leaos
+    git clone https://github.com/iceows/aosp_patches_leaos aosp_patches_leaos
 
 Finally, start the build script (Dynamic root):
 
-    bash aosp_build_leaos/build.sh treble 64BVZ 
+    bash aosp_build_leaos/build.sh <build directory>
     
 
 Be sure to update the cloned repos from time to time!
@@ -32,7 +32,7 @@ Be sure to update the cloned repos from time to time!
 
 A-only targets for Huawei hi6250 re generated from AB images instead of source-built - refer to [huawei-creator](https://github.com/iceows/huawei-creator).
 
-	sudo ./run-huawei-aonly.sh "myimage.img"  "LeaOS-PHH" "PRA-LX1" "Y" "N"
+	sudo ./run-huawei-aonly.sh "myimage.img"  "LeaOS-PHH" "PRA-LX1"
 
 ---
 
