@@ -1,5 +1,5 @@
 
-## Building PHH-based LineageOS GSIs ##
+## Building PHH-based GSIs ##
 
 To get started with building PHH AOSP, you'll need to get familiar with [Git and Repo](https://source.android.com/source/using-repo.html), and set up your environment by referring to [LineageOS Wiki](https://wiki.lineageos.org/devices/redfin/build) (mainly "Install the build packages") and [How to build a GSI](https://github.com/phhusson/treble_experimentations/wiki/How-to-build-a-GSI%3F).
 
@@ -8,25 +8,15 @@ First, open a new Terminal window, create a new working directory for your Aosp 
 
     mkdir leaos-aosp; cd leaos-aosp
     
-Clone the modified treble_experimentations repo there:
-
-    git clone https://github.com/iceows/treble_experimentations
-    
-Initialize your LineageOS workspace:
-
-    repo init -u https://android.googlesource.com/platform/manifest -b android-11.0.0_r48
-
 Clone both this and the patches repos:
 
-    git clone https://github.com/iceows/aosp_build_leaos aosp_build_leaos
-    git clone https://github.com/iceows/aosp_patches_leaos aosp_patches_leaos
+    git clone https://github.com/iceows/aosp_build_leaos aosp_build_leaos -b android-12
+    git clone https://github.com/iceows/aosp_patches_leaos aosp_patches_leaos -b android-12
 
-Finally, start the build script (Dynamic root):
+Finally, start the build script (Dynamic root , no google apps):
 
-    bash aosp_build_leaos/build.sh <build directory>
+    bash aosp_build_leaos/build.sh treble 64BVZ
     
-
-Be sure to update the cloned repos from time to time!
 
 ---
 
