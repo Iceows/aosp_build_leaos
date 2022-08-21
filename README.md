@@ -10,8 +10,8 @@ First, open a new Terminal window, create a new working directory for your Aosp 
     
 Clone both this and the patches repos:
 
-    git clone https://github.com/iceows/aosp_build_leaos aosp_build_leaos -b android-12
-    git clone https://github.com/iceows/aosp_patches_leaos aosp_patches_leaos -b android-12
+    git clone https://github.com/iceows/aosp_build_leaos aosp_build_leaos -b android-13
+    git clone https://github.com/iceows/aosp_patches_leaos aosp_patches_leaos -b android-13
 
 Finally, start the build script (Dynamic root , no google apps):
 
