@@ -24,6 +24,13 @@ do
     fi
 done
 
+if [ ${MODE} != "device" ] && [ ${MODE} != "treble" ]
+then
+    echo "Invalid mode - exiting"
+    echo ""
+    exit 1
+fi
+
 echo "Building with NoSync : $NOSYNC - Mode : ${MODE}"
 
 
@@ -87,12 +94,14 @@ finalize_treble() {
     repo forall -r '.*opengapps.*' -c 'git lfs fetch && git lfs checkout'
     
     (cd device/phh/treble; git clean -fdx; bash generate.sh)
-    (cd vendor/foss; git clean -fdx; bash update.sh)
     
-    # only A12 build
-    if grep -q lottie packages/apps/Launcher3/Android.bp;then
-       (cd vendor/partner_gms; git am ../../aosp_build_leaos/0001-Fix-SearchLauncher-for-Android-12.1.patch || true)
-    fi
+    # FOSS 
+    #(cd vendor/foss; git clean -fdx; bash update.sh)
+    
+    # Google App
+    #if grep -q lottie packages/apps/Launcher3/Android.bp;then
+    #   (cd vendor/partner_gms; git am ../../aosp_build_leaos/0001-Fix-SearchLauncher-for-Android-12.1.patch || true)
+    #fi
 
     rm -f vendor/gapps/interfaces/wifi_ext/Android.bp
     
@@ -101,7 +110,8 @@ finalize_treble() {
 }
 
 build_device() {
-	:
+    brunch ${1}
+    mv $OUT/lineage-*.zip ~/build-output/lineage-18.1-$BUILD_DATE-UNOFFICIAL-${1}$($PERSONAL && echo "-personal" || echo "").zip
 }
 
 build_treble() {

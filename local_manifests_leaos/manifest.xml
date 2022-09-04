@@ -3,6 +3,7 @@
  <remote name="aosp" fetch=".." review="https://android-review.googlesource.com/"/>
  <remote name="phh" fetch="https://github.com/phhusson/"/>
  <remote name="davish" fetch="https://gitlab.com/davi.sh/"/>
+ <remote name="proton" fetch="https://gitlab.com/ProtonAOSP/"/>
  <remote name="fdroid" fetch="https://gitlab.com/fdroid/"/>
 
 <default remote="aosp" revision="refs/tags/android-12.1.0_r11" sync-j="4"/>
@@ -17,7 +18,7 @@
 
 
 <!-- Google Apps 12 support -->
-<project path="vendor/partner_gms" name="gms-android-12" remote="davish" revision="android-12.1" /> 
+<project path="vendor/partner_gms" name="android_vendor_gapps" remote="proton" revision="sc" /> 
 
   
 <!-- FDroid -->  
