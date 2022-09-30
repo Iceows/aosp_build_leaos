@@ -123,7 +123,6 @@ build_treble() {
 
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE installclean
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE -j8 systemimage
-    #make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE vndk-test-sepolicy
 
     mv $OUT/system.img ~/build-output/LeaOS-A13-$BUILD_DATE-${TARGET}.img
 }
@@ -140,8 +139,12 @@ else
     echo "Applying patches"
     prep_treble
     
+    apply_patches prerequisite
     apply_patches phh
+    apply_patches peter
     apply_patches iceows
+    apply_patches ponces
+
 
     finalize_treble
     echo ""
