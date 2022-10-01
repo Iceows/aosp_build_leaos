@@ -59,7 +59,8 @@ WITHOUT_CHECK_API=true
 ORIGIN_FOLDER="$(dirname "$(readlink -f -- "$0")")"
 export OUT_DIR=/home/iceows/build/A13
 
-repo init -u https://android.googlesource.com/platform/manifest -b android13-gsi
+#  repo init -u https://android.googlesource.com/platform/manifest -b android13-gsi
+repo init -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r4
 
 prep_build() {
 	echo "Preparing local manifests"
@@ -142,13 +143,11 @@ else
     apply_patches prerequisite
     apply_patches phh
     apply_patches peter
-    apply_patches iceows
     apply_patches ponces
-
+    apply_patches iceows
 
     finalize_treble
     echo ""
-
 fi
 
 for var in "${@:2}"
