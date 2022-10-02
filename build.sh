@@ -141,8 +141,8 @@ else
     prep_treble
     
     apply_patches prerequisite
-    apply_patches phh
     apply_patches peter
+    apply_patches phh
     apply_patches ponces
     apply_patches iceows
 
