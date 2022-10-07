@@ -60,7 +60,7 @@ ORIGIN_FOLDER="$(dirname "$(readlink -f -- "$0")")"
 export OUT_DIR=/home/iceows/build/A13
 
 #  repo init -u https://android.googlesource.com/platform/manifest -b android13-gsi
-repo init -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r4
+repo init -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r8
 
 prep_build() {
 	echo "Preparing local manifests"
@@ -136,18 +136,17 @@ then
     source build/envsetup.sh &> /dev/null
     echo ""
 else
+
     prep_build
     echo "Applying patches"
     prep_treble
-    
-    apply_patches prerequisite
-    apply_patches peter
-    apply_patches phh
-    apply_patches ponces
+   
+    apply_patches trebledroid
     apply_patches iceows
 
     finalize_treble
     echo ""
+
 fi
 
 for var in "${@:2}"
