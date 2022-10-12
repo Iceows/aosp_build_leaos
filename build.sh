@@ -124,6 +124,9 @@ build_treble() {
 
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE installclean
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE -j8 systemimage
+    # don't support OUT_DIR var
+    #make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE vndk-test-sepolicy
+	
 
     mv $OUT/system.img ~/build-output/LeaOS-A13-$BUILD_DATE-${TARGET}.img
 }
@@ -146,7 +149,6 @@ else
 
     finalize_treble
     echo ""
-
 fi
 
 for var in "${@:2}"
