@@ -11,6 +11,7 @@ for project in $(cd $patches; echo *);do
 	[ "$p" == vendor/hardware/overlay ] && p=vendor/hardware_overlay
 	[ "$p" == vendor/partner/gms ] && p=vendor/partner_gms
 	[ "$p" == external/harfbuzz/ng ] && p=external/harfbuzz_ng
+	[ "$p" == treble/app ] && p=treble_app
 	echo	
 	pushd $p
 	git clean -fdx; git reset --hard
