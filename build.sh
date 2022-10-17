@@ -128,7 +128,7 @@ build_treble() {
     #make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE vndk-test-sepolicy
 	
 
-    mv $OUT/system.img ~/build-output/LeaOS-A13-$BUILD_DATE-${TARGET}.img
+    mv $OUT/system.img ~/build-output/TrebleDroid-A13-$BUILD_DATE-${TARGET}.img
 }
 
 if ${NOSYNC}
@@ -138,6 +138,14 @@ then
     echo "Setting up build environment"
     source build/envsetup.sh &> /dev/null
     echo ""
+    
+    echo "Generating .mk"
+    rm -f device/*/sepolicy/common/private/genfs_contexts
+    cd device/phh/treble
+    git clean -fdx
+    bash generate.sh
+    cd ../../..
+
 else
 
     prep_build
@@ -160,7 +168,7 @@ do
     echo "Starting $(${PERSONAL} && echo "personal " || echo "")build for ${MODE} ${var}"
     build_${MODE} ${var}
 done
-ls ~/build-output | grep 'LeaOS' || true
+ls ~/build-output | grep 'TrebleDroid' || true
 
 END=`date +%s`
 ELAPSEDM=$(($(($END-$START))/60))
