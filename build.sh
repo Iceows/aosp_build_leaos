@@ -31,15 +31,24 @@ MODE=${1}
 NOSYNC=false
 PERSONAL=false
 ICEOWS=true
+GOOGLEAPPS=false
+
 for var in "${@:2}"
 do
     if [ ${var} == "nosync" ]
     then
         NOSYNC=true
     fi
+   
+    if [[ ${var} == *"64BG"* ]] 
+    then
+        GOOGLEAPPS=true
+    fi
 done
 
-echo "Building with NoSync : $NOSYNC - Mode : ${MODE}"
+
+
+echo "Building with NoSync : $NOSYNC - Mode : ${MODE} - GoogleApps : ${GOOGLEAPPS}"
 
 
 
@@ -155,8 +164,18 @@ else
     apply_patches trebledroid
     apply_patches iceows
 
+
+    if ${GOOGLEAPPS}
+    then
+    	echo "No patch for Google release"
+    else
+        echo "Add extra patchs for Vanillia release"
+    	apply_patches extras
+    fi
+
     finalize_treble
     echo ""
+
 fi
 
 for var in "${@:2}"
