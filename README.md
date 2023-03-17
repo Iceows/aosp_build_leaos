@@ -20,9 +20,11 @@ Finally, start the build script (Dynamic root , no google apps):
 
 ---
 
-A-only targets for Huawei hi6250 re generated from AB images instead of source-built - refer to [huawei-creator](https://github.com/iceows/huawei-creator).
+Specific vndklite targets for Huawei are generated from AB images instead of source-built - refer to [huawei-creator](https://github.com/iceows/huawei-creator).
 
-	sudo ./run-huawei-aonly.sh "myimage.img"  "LeaOS-PHH" "PRA-LX1"
+	sudo bash ./run-huawei-ab-a13.sh "myimage.img" sudo bash ./run-huawei-ab-a13.sh /home/iceows/build-output/LeaOS-20.0-20230302-arm64_bgN.img "LeaOS" "ANE-LX1" "N"
+ "LeaOS" "ANE-LX1" "N"
+
 
 ---
 
