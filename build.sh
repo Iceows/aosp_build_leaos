@@ -72,7 +72,7 @@ export OUT_DIR=/home/iceows/build/A13
 
 # repo init -u https://android.googlesource.com/platform/manifest -b android13-gsi
 # _r16 for all pixel release
-repo init -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r29
+repo init -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r37
 
 prep_build() {
 	echo "Preparing local manifests"
@@ -173,7 +173,7 @@ else
     	echo "No patch for Google release"
     else
         echo "Add extra patchs for Vanillia release"
-    	apply_patches extras
+    	#apply_patches extras
     fi
 
     finalize_treble
