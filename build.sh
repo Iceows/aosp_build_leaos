@@ -68,11 +68,11 @@ WITHOUT_CHECK_API=true
 ORIGIN_FOLDER="$(dirname "$(readlink -f -- "$0")")"
 
 
-export OUT_DIR=/home/iceows/build/A13
+#sexport OUT_DIR=/home/iceows/build/A13
 
 # repo init -u https://android.googlesource.com/platform/manifest -b android13-gsi
 # _r16 for all pixel release
-repo init -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r41
+repo init -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r44
 
 prep_build() {
 	echo "Preparing local manifests"
