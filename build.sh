@@ -72,7 +72,7 @@ ORIGIN_FOLDER="$(dirname "$(readlink -f -- "$0")")"
 
 # repo init -u https://android.googlesource.com/platform/manifest -b android13-gsi
 # _r16 for all pixel release
-repo init -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r44
+repo init -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r49
 
 prep_build() {
 	echo "Preparing local manifests"
