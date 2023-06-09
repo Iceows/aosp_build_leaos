@@ -82,7 +82,7 @@ prep_build() {
 	echo ""
 
 	echo "Syncing repos"
-	repo sync -j4 -c -q --force-sync --no-clone-bundle --optimized-fetch --prune
+        repo sync -c -j 1 --force-sync || repo sync -c -j1 --force-sync
 
 	echo ""
 
