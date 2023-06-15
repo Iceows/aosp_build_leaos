@@ -17,10 +17,10 @@ for project in $(cd $patches; echo *);do
 	git clean -fdx; git reset --hard
 	for patch in $patches/$project/*.patch;do
 		# Check if patch is already applied
-		if patch -f -p1 --dry-run -R < $patch > /dev/null; then
-            		printf "### ALREADY APPLIED: $patch \n";
-			continue
-		fi
+		# if patch -f -p1 --dry-run -R < $patch > /dev/null; then
+            	# 	printf "### ALREADY APPLIED: $patch \n";
+		# 	continue
+		# fi
 		
 		if git apply --check $patch;then
 			git am $patch

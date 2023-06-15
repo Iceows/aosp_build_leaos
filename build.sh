@@ -71,7 +71,7 @@ export OUT_DIR=/home/iceows/build/A13
 
 # repo init -u https://android.googlesource.com/platform/manifest -b android13-gsi
 # _r16 for all pixel release
-repo init -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r51
+repo init -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r52
 
 prep_build() {
 	echo "Preparing local manifests"
@@ -165,7 +165,6 @@ else
    
     apply_patches trebledroid
     apply_patches iceows
-
 
     if ${GOOGLEAPPS}
     then
