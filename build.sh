@@ -1,7 +1,22 @@
 #!/bin/bash
+
+# # To increase swap file to 32 Go
+# sudo bash
+# dd if=/dev/zero of=/var/tmp/oomswap bs=1M count=32768
+# chmod 600 /var/tmp/oomswap
+# mkswap /var/tmp/oomswap
+# swapon /var/tmp/oomswap
+# 
+# # To change swappiness to 70 (default 60)
+# cat /proc/sys/vm/swappiness
+# sysctl vm.swappiness=70
+# vm.swappiness = 70
+#
+
 echo ""
-echo "AOSP Buildbot - LeaOS version"
+echo "AOSP Buildbot - LeaOS version Android 13"
 echo "Executing in 5 seconds - CTRL-C to exit"
+echo "If you have killed process increase the swap file please"
 echo ""
 sleep 5
 
@@ -16,15 +31,24 @@ MODE=${1}
 NOSYNC=false
 PERSONAL=false
 ICEOWS=true
+GOOGLEAPPS=false
+
 for var in "${@:2}"
 do
     if [ ${var} == "nosync" ]
     then
         NOSYNC=true
     fi
+   
+    if [[ ${var} == *"64BG"* ]] 
+    then
+        GOOGLEAPPS=true
+    fi
 done
 
-echo "Building with NoSync : $NOSYNC - Mode : ${MODE}"
+
+
+echo "Building with NoSync : $NOSYNC - Mode : ${MODE} - GoogleApps : ${GOOGLEAPPS}"
 
 
 
@@ -41,9 +65,13 @@ echo\
 START=`date +%s`
 BUILD_DATE="$(date +%Y%m%d)"
 WITHOUT_CHECK_API=true
-WITH_SU=true
+ORIGIN_FOLDER="$(dirname "$(readlink -f -- "$0")")"
 
-repo init -u https://android.googlesource.com/platform/manifest -b android-11.0.0_r48
+export OUT_DIR=/home/iceows/build/A13
+
+# repo init -u https://android.googlesource.com/platform/manifest -b android13-gsi
+# _r16 for all pixel release
+repo init -u https://android.googlesource.com/platform/manifest -b android-14.0.0_r2
 
 prep_build() {
 	echo "Preparing local manifests"
@@ -53,7 +81,7 @@ prep_build() {
 	echo ""
 
 	echo "Syncing repos"
-	repo sync -j$(nproc --all) -c -q --force-sync --no-tags --no-clone-bundle --optimized-fetch --prune
+        repo sync -c -j 1 --force-sync || repo sync -c -j1 --force-sync
 
 	echo ""
 
@@ -65,7 +93,7 @@ prep_build() {
 
 apply_patches() {
     echo "Applying patch group ${1}"
-    bash ./treble_experimentations/apply-patches.sh ./aosp_patches_leaos/patches/${1}
+    bash ./aosp_build_leaos/apply-patches.sh ./aosp_patches_leaos/patches/${1}
 }
 
 prep_device() {
@@ -86,6 +114,7 @@ finalize_treble() {
     git clean -fdx
     bash generate.sh
     cd ../../..
+
 }
 
 build_device() {
@@ -103,10 +132,14 @@ build_treble() {
         (*) echo "Invalid target - exiting"; exit 1;;
     esac
     lunch ${TARGET}-userdebug
-    make installclean
-    make -j$(nproc --all) systemimage
 
-    mv $OUT/system.img ~/build-output/LeaOS-PHH-$BUILD_DATE-${TARGET}.img
+    make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE installclean
+    make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE -j8 systemimage
+    # don't support OUT_DIR var
+    #make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE vndk-test-sepolicy
+	
+
+    mv $OUT/system.img ~/build-output/TrebleDroid-A13-$BUILD_DATE-${TARGET}.img
 }
 
 if ${NOSYNC}
@@ -116,15 +149,30 @@ then
     echo "Setting up build environment"
     source build/envsetup.sh &> /dev/null
     echo ""
+    
+    echo "Generating .mk"
+    rm -f device/*/sepolicy/common/private/genfs_contexts
+    cd device/phh/treble
+    git clean -fdx
+    bash generate.sh
+    cd ../../..
+
 else
+
     prep_build
     echo "Applying patches"
     prep_treble
-    
-    apply_patches spl
-    apply_patches phh
-    apply_patches personal
-    apply_patches others
+   
+    apply_patches trebledroid
+    apply_patches iceows
+
+    if ${GOOGLEAPPS}
+    then
+    	echo "No patch for Google release"
+    else
+        echo "Add extra patchs for Vanillia release"
+    	#apply_patches extras
+    fi
 
     finalize_treble
     echo ""
@@ -140,7 +188,7 @@ do
     echo "Starting $(${PERSONAL} && echo "personal " || echo "")build for ${MODE} ${var}"
     build_${MODE} ${var}
 done
-ls ~/build-output | grep 'LeaOS' || true
+ls ~/build-output | grep 'TrebleDroid' || true
 
 END=`date +%s`
 ELAPSEDM=$(($(($END-$START))/60))
