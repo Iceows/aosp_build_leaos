@@ -14,7 +14,7 @@
 #
 
 echo ""
-echo "AOSP Buildbot - LeaOS version Android 13"
+echo "AOSP Buildbot - LeaOS version Android 14"
 echo "Executing in 5 seconds - CTRL-C to exit"
 echo "If you have killed process increase the swap file please"
 echo ""
@@ -67,10 +67,9 @@ BUILD_DATE="$(date +%Y%m%d)"
 WITHOUT_CHECK_API=true
 ORIGIN_FOLDER="$(dirname "$(readlink -f -- "$0")")"
 
-export OUT_DIR=/home/iceows/build/A13
+# export OUT_DIR=/home/iceows/build/A14
 
-# repo init -u https://android.googlesource.com/platform/manifest -b android13-gsi
-# _r16 for all pixel release
+# repo init
 repo init -u https://android.googlesource.com/platform/manifest -b android-14.0.0_r2
 
 prep_build() {
@@ -139,7 +138,7 @@ build_treble() {
     #make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE vndk-test-sepolicy
 	
 
-    mv $OUT/system.img ~/build-output/TrebleDroid-A13-$BUILD_DATE-${TARGET}.img
+    mv $OUT/system.img ~/build-output/TrebleDroid-A14-$BUILD_DATE-${TARGET}.img
 }
 
 if ${NOSYNC}
