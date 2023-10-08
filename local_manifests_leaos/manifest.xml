@@ -16,11 +16,10 @@
 
 <!-- Prebuild vndk 28 -->
 <project path="prebuilts/vndk/v28" name="platform/prebuilts/vndk/v28" remote="aosp" clone-depth="1" revision="204f1bad00aaf480ba33233f7b8c2ddaa03155dd" />
-          
 
-<!-- Google Apps MindApps support -->
-<remote name="gapps-mind" fetch="https://gitlab.com/MindTheGapps/"/>
-<project path="vendor/gapps" name="vendor_gapps" remote="gapps-mind" revision="tau" />
+<!-- Google Apps Ponces support -->
+<remote name="gapps-ponces" fetch="https://gitlab.com/ponces/"/>
+<project path="vendor/gapps" name="vendor_gapps" remote="gapps-ponces" revision="android-14.0" clone-depth="1" />
 
 <!-- GCamGO support -->
 <remote name="iceows" fetch="https://github.com/iceows/" />
