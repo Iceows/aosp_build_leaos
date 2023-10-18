@@ -70,7 +70,7 @@ ORIGIN_FOLDER="$(dirname "$(readlink -f -- "$0")")"
 # export OUT_DIR=/home/iceows/build/A14
 
 # repo init
-repo init -u https://android.googlesource.com/platform/manifest -b android-14.0.0_r2
+repo init -u https://android.googlesource.com/platform/manifest -b android-14.0.0_r11
 
 prep_build() {
 	echo "Preparing local manifests"
