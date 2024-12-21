@@ -33,6 +33,8 @@ PERSONAL=false
 ICEOWS=true
 GOOGLEAPPS=false
 
+
+
 for var in "${@:2}"
 do
     if [ ${var} == "nosync" ]
@@ -47,6 +49,7 @@ do
 done
 
 
+supp="-ap3a"
 
 echo "Building with NoSync : $NOSYNC - Mode : ${MODE} - GoogleApps : ${GOOGLEAPPS}"
 
@@ -67,10 +70,10 @@ BUILD_DATE="$(date +%Y%m%d)"
 WITHOUT_CHECK_API=true
 ORIGIN_FOLDER="$(dirname "$(readlink -f -- "$0")")"
 
-# export OUT_DIR=/home/iceows/build/A14
+export OUT_DIR=/home/iceows/build/A15
 
 # repo init
-repo init -u https://android.googlesource.com/platform/manifest -b android-14.0.0_r11
+repo init -u https://android.googlesource.com/platform/manifest -b android-15.0.0_r5 --depth=1
 
 prep_build() {
 	echo "Preparing local manifests"
@@ -80,7 +83,7 @@ prep_build() {
 	echo ""
 
 	echo "Syncing repos"
-        repo sync -c -j 1 --force-sync || repo sync -c -j1 --force-sync
+        repo sync -c -j1 --force-sync
 
 	echo ""
 
@@ -130,15 +133,15 @@ build_treble() {
         ("64BVZ") TARGET=treble_arm64_bvZ;;
         (*) echo "Invalid target - exiting"; exit 1;;
     esac
-    lunch ${TARGET}-userdebug
+    
+    lunch treble_arm64_bvS-ap3a-userdebug
 
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE installclean
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE -j8 systemimage
-    # don't support OUT_DIR var
     #make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE vndk-test-sepolicy
-	
+ 
 
-    mv $OUT/system.img ~/build-output/TrebleDroid-A14-$BUILD_DATE-${TARGET}.img
+    mv $OUT/system.img ~/build-output/TrebleDroid-A15-$BUILD_DATE-${TARGET}.img
 }
 
 if ${NOSYNC}
