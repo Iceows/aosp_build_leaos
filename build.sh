@@ -151,13 +151,7 @@ then
     echo "Setting up build environment"
     source build/envsetup.sh &> /dev/null
     echo ""
-    
-    echo "Generating .mk"
-    rm -f device/*/sepolicy/common/private/genfs_contexts
-    cd device/phh/treble
-    git clean -fdx
-    bash generate.sh
-    cd ../../..
+
 
 else
 
@@ -176,11 +170,12 @@ else
     	#apply_patches extras
     fi
 
-    finalize_treble
-    echo ""
-
 fi
 
+echo "Generating .mk"
+finalize_treble
+echo ""
+    
 for var in "${@:2}"
 do
     if [ ${var} == "nosync" ]
