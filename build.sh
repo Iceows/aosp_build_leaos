@@ -14,7 +14,7 @@
 #
 
 echo ""
-echo "AOSP Buildbot - LeaOS version Android 14"
+echo "AOSP Buildbot - LeaOS version Android 15"
 echo "Executing in 5 seconds - CTRL-C to exit"
 echo "If you have killed process increase the swap file please"
 echo ""
