@@ -73,7 +73,7 @@ ORIGIN_FOLDER="$(dirname "$(readlink -f -- "$0")")"
 export OUT_DIR=/home/iceows/build/A15
 
 # repo init
-repo init -u https://android.googlesource.com/platform/manifest -b android-15.0.0_r5 --depth=1
+repo init -u https://android.googlesource.com/platform/manifest -b android-15.0.0_r26 --depth=1
 
 prep_build() {
 	echo "Preparing local manifests"
@@ -94,7 +94,7 @@ prep_build() {
 }
 
 apply_patches() {
-    echo "Applying patch group ${1}"
+    echo "Applying patches for group ${1}"
     bash ./aosp_build_leaos/apply-patches.sh ./aosp_patches_leaos/patches/${1}
 }
 
