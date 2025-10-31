@@ -48,12 +48,7 @@ do
     fi
 done
 
-
-supp="-ap3a"
-
 echo "Building with NoSync : $NOSYNC - Mode : ${MODE} - GoogleApps : ${GOOGLEAPPS}"
-
-
 
 # Abort early on error
 set -eE
@@ -134,12 +129,11 @@ build_treble() {
         (*) echo "Invalid target - exiting"; exit 1;;
     esac
     
-    lunch treble_arm64_bvS-ap3a-userdebug
+    lunch treble_arm64_bvS-bp1a-userdebug
 
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE installclean
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE -j8 systemimage
-    #make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE vndk-test-sepolicy
- 
+
 
     mv $OUT/system.img ~/build-output/TrebleDroid-A15-$BUILD_DATE-${TARGET}.img
 }
