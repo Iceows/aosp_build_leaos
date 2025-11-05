@@ -67,10 +67,14 @@ ORIGIN_FOLDER="$(dirname "$(readlink -f -- "$0")")"
 
 export OUT_DIR=/home/iceows/build/A15
 
-# repo init
-repo init -u https://android.googlesource.com/platform/manifest -b android-15.0.0_r26 --depth=1
+
 
 prep_build() {
+
+	# repo init
+	echo "repo init"
+	repo init -u https://android.googlesource.com/platform/manifest -b android-15.0.0_r36 --git-lfs --depth=1
+
 	echo "Preparing local manifests"
 	rm -rf .repo/local_manifests
 	mkdir -p .repo/local_manifests
@@ -80,7 +84,6 @@ prep_build() {
 	echo "Syncing repos"
         repo sync -c -j1 --force-sync
 
-	echo ""
 
 	echo "Setting up build environment"
 	source build/envsetup.sh &> /dev/null
@@ -163,6 +166,8 @@ else
         echo "Add extra patchs for Vanillia release"
     	#apply_patches extras
     fi
+    
+    rm -rf ./vendor/hardware_overlay/TrebleApp
 
 fi
 
