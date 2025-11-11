@@ -111,7 +111,7 @@ finalize_device() {
 finalize_treble() {
     rm -f device/*/sepolicy/common/private/genfs_contexts
     cd device/phh/treble
-    git clean -fdx
+    #git clean -fdx
     bash generate.sh
     cd ../../..
 
@@ -125,14 +125,14 @@ build_treble() {
     case "${1}" in
         ("64BGS") TARGET=treble_arm64_bgS;;  
         ("64BGN") TARGET=treble_arm64_bgN;;
-        ("64BGZ") TARGET=treble_arm64_bgZ;;
         ("64BVS") TARGET=treble_arm64_bvS;;
         ("64BVN") TARGET=treble_arm64_bvN;;
-        ("64BVZ") TARGET=treble_arm64_bvZ;;
+        ("64BES") TARGET=treble_arm64_beS;;
+        ("64BEN") TARGET=treble_arm64_beN;;
         (*) echo "Invalid target - exiting"; exit 1;;
     esac
     
-    lunch treble_arm64_bvS-bp1a-userdebug
+    lunch ${TARGET}-bp1a-userdebug
 
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE installclean
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE -j8 systemimage
