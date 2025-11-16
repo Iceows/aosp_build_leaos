@@ -104,16 +104,17 @@ prep_treble() {
     :    
 }
 
-finalize_device() {
+generating_make_device() {
     :
 }
 
-finalize_treble() {
-    rm -f device/*/sepolicy/common/private/genfs_contexts
+generating_make_treble() {
+    echo "--> Generating makefiles"
+    cp aosp_build_leaos/leaos.mk device/phh/treble/
     cd device/phh/treble
-    #git clean -fdx
-    bash generate.sh
+    bash generate.sh leaos
     cd ../../..
+    echo
 
 }
 
@@ -172,7 +173,7 @@ else
 fi
 
 echo "Generating .mk"
-finalize_treble
+generating_make_treble
 echo ""
     
 for var in "${@:2}"
