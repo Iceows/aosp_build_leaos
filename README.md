@@ -13,9 +13,9 @@ Clone both this and the patches repos:
     git clone https://github.com/iceows/aosp_build_leaos aosp_build_leaos -b android-15
     git clone https://github.com/iceows/aosp_patches_leaos aosp_patches_leaos -b android-15
 
-Finally, start the build script (Dynamic root , no google apps):
+Finally, start the build script (no root , no google apps):
 
-    bash aosp_build_leaos/build.sh treble 64BVZ
+    bash aosp_build_leaos/build.sh treble 64BVN
     
 
 ---
@@ -28,6 +28,6 @@ Specific vndklite targets for Huawei are generated from AB images instead of sou
 
 This script is also used to make builds without sync repo. To do so add nosync in the command build line.
 
-    bash aosp_build_leaos/build.sh treble nosync 64BVZ
+    bash aosp_build_leaos/build.sh treble nosync 64BVN
 
 
