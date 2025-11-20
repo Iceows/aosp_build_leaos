@@ -7,11 +7,7 @@ endif
 # Do not include art debug targets
 PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD := false
 
-# Convert GC type to non-generational
-PRODUCT_PROPERTY_OVERRIDES += \
-	dalvik.vm.gctype=nogenerational_cc
-
-# Convert GC type to non-generational
+# Don't use read barrier
 PRODUCT_ART_USE_READ_BARRIER := false
 
 # Strip the local variable table and the local variable type table to reduce
@@ -25,7 +21,9 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
     Settings \
     SystemUI
 
+# Use GC type to non-generational
+# Use speed for ui compiler
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-    dalvik.vm.systemuicompilerfilter=speed
-
+    dalvik.vm.systemuicompilerfilter=speed  \
+    dalvik.vm.gctype=nogenerational_cc
 
