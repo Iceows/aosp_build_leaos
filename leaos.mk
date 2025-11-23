@@ -4,6 +4,16 @@ ifneq ($(TARGET_BUILD_VARIANT),eng)
 PRODUCT_SYSTEM_PROPERTIES += persist.sys.strictmode.disable=true
 endif
 
+# NFC AIDL
+PRODUCT_PACKAGES += \
+    android.hardware.nfc-service.nxp \
+    com.android.nfc_extras \
+    Tag
+
+# Radio AIDL wrapper
+PRODUCT_PACKAGES += \
+    android.hardware.radio-service.compat
+
 # Do not include art debug targets
 PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD := false
 
