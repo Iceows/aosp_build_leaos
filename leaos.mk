@@ -31,6 +31,9 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
     Settings \
     SystemUI
 
+# Disable user fault fd
+PRODUCT_ENABLE_UFFD_GC := false
+
 # Use GC type to non-generational
 # Use speed for ui compiler
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
