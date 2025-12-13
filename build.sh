@@ -65,7 +65,7 @@ BUILD_DATE="$(date +%Y%m%d)"
 WITHOUT_CHECK_API=true
 ORIGIN_FOLDER="$(dirname "$(readlink -f -- "$0")")"
 
-export OUT_DIR=/home/iceows/build/A15
+export OUT_DIR=/home/iceows/build/A16
 
 
 
@@ -73,7 +73,7 @@ prep_build() {
 
 	# repo init
 	echo "repo init"
-	repo init -u https://android.googlesource.com/platform/manifest -b android-15.0.0_r36 --git-lfs --depth=1
+	repo init -u https://android.googlesource.com/platform/manifest -b android-16.0.0_r4 --git-lfs --depth=1
 
 	echo "Preparing local manifests"
 	rm -rf .repo/local_manifests
@@ -133,13 +133,14 @@ build_treble() {
         (*) echo "Invalid target - exiting"; exit 1;;
     esac
     
-    lunch ${TARGET}-bp1a-userdebug
+    # Build: BP4A.251205.006
+    lunch ${TARGET}-bp4a-userdebug
 
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE installclean
     make RELAX_USES_LIBRARY_CHECK=true BUILD_NUMBER=$BUILD_DATE -j8 systemimage
 
 
-    mv $OUT/system.img ~/build-output/TrebleDroid-A15-$BUILD_DATE-${TARGET}.img
+    mv $OUT/system.img ~/build-output/TrebleDroid-A16-$BUILD_DATE-${TARGET}.img
 }
 
 if ${NOSYNC}
