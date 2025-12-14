@@ -14,7 +14,7 @@
 #
 
 echo ""
-echo "AOSP Buildbot - LeaOS version Android 15"
+echo "AOSP Buildbot - LeaOS version Android 16-QPR2"
 echo "Executing in 5 seconds - CTRL-C to exit"
 echo "If you have killed process increase the swap file please"
 echo ""
@@ -72,14 +72,15 @@ export OUT_DIR=/home/iceows/build/A16
 prep_build() {
 
 	# repo init
-	echo "repo init"
-	repo init -u https://android.googlesource.com/platform/manifest -b android-16.0.0_r4 --git-lfs --depth=1
 
 	echo "Preparing local manifests"
 	rm -rf .repo/local_manifests
 	mkdir -p .repo/local_manifests
 	cp ./aosp_build_leaos/local_manifests_leaos/*.xml .repo/local_manifests
 	echo ""
+
+	echo "repo init"
+	repo init -u https://android.googlesource.com/platform/manifest -b android-16.0.0_r4 --git-lfs --depth=1
 
 	echo "Syncing repos"
         repo sync -c -j1 --force-sync

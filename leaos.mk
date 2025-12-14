@@ -34,6 +34,10 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
 # Disable user fault fd
 PRODUCT_ENABLE_UFFD_GC := false
 
+# APEX not compressed
+OVERRIDE_PRODUCT_COMPRESSED_APEX := false
+# OVERRIDE_PRODUCT_DEFAULT_APEX_PAYLOAD_TYPE := erofs
+
 # Use GC type to non-generational
 # Use speed for ui compiler
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
