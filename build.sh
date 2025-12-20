@@ -72,18 +72,17 @@ export OUT_DIR=/home/iceows/build/A16
 prep_build() {
 
 	# repo init
+	echo "repo init"
+	repo init -u https://android.googlesource.com/platform/manifest -b android-16.0.0_r4 --git-lfs --depth=1
 
-	echo "Preparing local manifests"
+	#echo "Preparing local manifests"
 	rm -rf .repo/local_manifests
 	mkdir -p .repo/local_manifests
 	cp ./aosp_build_leaos/local_manifests_leaos/*.xml .repo/local_manifests
 	echo ""
-
-	echo "repo init"
-	repo init -u https://android.googlesource.com/platform/manifest -b android-16.0.0_r4 --git-lfs --depth=1
-
+	
 	echo "Syncing repos"
-        repo sync -c -j1 --force-sync
+        repo sync -c --force-sync --no-clone-bundle --no-tags -j$(nproc --ignore=2) || repo sync -c --force-sync --no-clone-bundle --no-tags -j$(nproc --ignore=2)
 
 
 	echo "Setting up build environment"
